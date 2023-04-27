@@ -101,7 +101,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           aws-bucket: ${{ secrets.AWS_BUCKET }}
-          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated/data-eng-etl-local.py'
+          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-etl-local.py'
           output-file-url: 'true'
       - name: Show URL
         run: |
