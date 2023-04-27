@@ -36,7 +36,7 @@ jobs:
         # run: jupyter nbconvert ../data-eng-updated/data-eng-etl-local.ipynb --to python 
         run: |
           cd ./data-eng-updated
-          jupyter nbconvert data-eng-etl-local.ipynb --to python --output=data-eng-etl-local.py
+          jupyter nbconvert data-eng-etl-local.ipynb --to python --output=data-eng-updated-new.py
           tree -a
           pwd
         
@@ -44,8 +44,8 @@ jobs:
       - name: Upload python script
         uses: actions/upload-artifact@v2
         with:
-          name: data-eng-etl-local.py
-          path: /home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated/data-eng-etl-local.py
+          name: data-eng-updated-new.py
+          path: /home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated/data-eng-updated-new.py
 
   # Upload python script to S3 and update Glue job
   deploy:
@@ -58,7 +58,7 @@ jobs:
       - name: Download python script from build
         uses: actions/download-artifact@v2
         with:
-          name: data-eng-etl-local.py
+          name: data-eng-updated-new.py
           
       # Set up credentials used by AWS CLI
       - name: Set up AWS credentials
@@ -86,7 +86,7 @@ jobs:
       #   with:
       #     args: --acl public-read
       #   env:
-      #     FILE: /home/runner/work/data-eng-elt-glue/data-eng-elt-glue/data-eng-etl-local.py
+      #     FILE: /home/runner/work/data-eng-elt-glue/data-eng-elt-glue/data-eng-updated-new.py
       #     AWS_REGION: ${{ secrets.AWS_REGION }}
       #     S3_BUCKET: ${{ secrets.AWS_BUCKET }}
       #     S3_KEY: data-eng-etl-local
@@ -101,7 +101,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           aws-bucket: ${{ secrets.AWS_BUCKET }}
-          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-etl-local.py'
+          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated-new.py'
           output-file-url: 'true'
       - name: Show URL
         run: |
