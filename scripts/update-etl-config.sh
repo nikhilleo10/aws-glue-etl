@@ -1,4 +1,4 @@
-if [ ! -f "./data-eng-updated/data-eng-updated-new.json" ]; then
+if [ ! -f "./data-eng-updated-new/data-eng-updated-new.json" ]; then
 echo Error: data-eng-updated-new.json File does not exist
 exit 1
 fi
@@ -13,7 +13,7 @@ fi
 echo Starting the update script.
 echo
 
-cd_properties_file='./data-eng-updated/data-eng-updated-new.json'
+cd_properties_file='./data-eng-updated-new/data-eng-updated-new.json'
 
 S3_UPLOAD_PATH=$(jq -r '.command.scriptLocation' $cd_properties_file)
 
