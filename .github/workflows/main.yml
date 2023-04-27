@@ -35,7 +35,7 @@ jobs:
       - name: Convert notebook
         # run: jupyter nbconvert ../data-eng-updated/data-eng-etl-local.ipynb --to python 
         run: |
-          cd ./data-eng-updated
+          cd ./data-eng-updated-new
           jupyter nbconvert data-eng-etl-local.ipynb --to python --output=data-eng-updated-new.py
           tree -a
           pwd
