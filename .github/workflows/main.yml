@@ -45,8 +45,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: data-eng-etl-local.py
-          path: /home/runner/work/data-eng-elt-glue/data-eng-elt-glue/data-eng-updated/data-eng-etl-local.py
-  
+          path: $(pwd)/data-eng-etl-local.py
+
   # Upload python script to S3 and update Glue job
   deploy:
     needs: build
@@ -101,7 +101,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           aws-bucket: ${{ secrets.AWS_BUCKET }}
-          file-path: '/home/runner/work/data-eng-elt-glue/data-eng-elt-glue/data-eng-etl-local.py'
+          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated/data-eng-etl-local.py'
           output-file-url: 'true'
       - name: Show URL
         run: |
