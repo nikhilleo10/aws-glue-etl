@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: data-eng-updated-new.py
-          path: /home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated/data-eng-updated-new.py
+          path: /home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated-new/data-eng-updated-new.py
 
   # Upload python script to S3 and update Glue job
   deploy:
