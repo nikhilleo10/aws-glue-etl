@@ -1,40 +1,42 @@
 {
-  "name" : "data-eng-updated",
-  "description" : "",
-  "role" : "arn:aws:iam::511522223657:role/aws-glue-redshift-data-eng-poc",
-  "executionProperty" : {
-    "maxConcurrentRuns" : 1
+  "name": "data-eng-updated",
+  "description": "",
+  "role": "arn:aws:iam::511522223657:role/aws-glue-redshift-data-eng-poc",
+  "executionProperty": {
+    "maxConcurrentRuns": 1
   },
-  "command" : {
-    "name" : "glueetl",
-    "scriptLocation" : "s3://aws-glue-assets-511522223657-ap-south-1/scripts/data-eng-updated.py",
-    "pythonVersion" : "3"
+  "command": {
+    "name": "glueetl",
+    "scriptLocation": "https://data-eng-s3-wednesday.s3.ap-south-1.amazonaws.com/artifacts/sYzmy2tseyhMMUBiwQVdz3tR7fywUZMj/data-eng-etl-local.py?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXOGIZWYU52O73AF5%2F20230427%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20230427T120034Z&X-Amz-Expires=86400&X-Amz-Signature=a3d4d976f8b97389012ee08752b490d0011cdaa04a4197078efcd8197e907a88&X-Amz-SignedHeaders=host",
+    "pythonVersion": "3"
   },
-  "defaultArguments" : {
-    "--encryption-type" : "sse-s3",
-    "--enable-job-insights" : "false",
-    "--additional-python-modules" : "spacy,scispacy,https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz,awswrangler,nltk",
-    "--enable-glue-datacatalog" : "true",
-    "library-set" : "analytics",
-    "--job-language" : "python",
-    "--TempDir" : "s3://aws-glue-assets-511522223657-ap-south-1/temporary/",
-    "--enable-auto-scaling" : "false"
+  "defaultArguments": {
+    "--encryption-type": "sse-s3",
+    "--enable-job-insights": "false",
+    "--additional-python-modules": "spacy,scispacy,https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz,awswrangler,nltk",
+    "--enable-glue-datacatalog": "true",
+    "library-set": "analytics",
+    "--job-language": "python",
+    "--TempDir": "s3://aws-glue-assets-511522223657-ap-south-1/temporary/",
+    "--enable-auto-scaling": "false"
   },
-  "connections" : {
-    "connections" : [ "redshift-new-conn-data-eng" ]
+  "connections": {
+    "connections": [
+      "redshift-new-conn-data-eng"
+    ]
   },
-  "maxRetries" : 0,
-  "allocatedCapacity" : 2,
-  "timeout" : 2880,
-  "maxCapacity" : 2.0,
-  "glueVersion" : "3.0",
-  "numberOfWorkers" : 2,
-  "workerType" : "G.1X",
-  "executionClass" : "STANDARD",
-  "sourceControlDetails" : {
-    "provider" : "GITHUB",
-    "repository" : "data-eng-elt-glue",
-    "branch" : "main",
-    "folder" : "data-eng-updated"
+  "maxRetries": 0,
+  "allocatedCapacity": 2,
+  "timeout": 2880,
+  "maxCapacity": 2,
+  "glueVersion": "3.0",
+  "numberOfWorkers": 2,
+  "workerType": "G.1X",
+  "executionClass": "STANDARD",
+  "sourceControlDetails": {
+    "provider": "GITHUB",
+    "repository": "data-eng-elt-glue",
+    "branch": "main",
+    "folder": "data-eng-updated"
   }
 }
