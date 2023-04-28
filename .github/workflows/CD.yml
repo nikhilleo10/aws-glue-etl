@@ -66,15 +66,13 @@ jobs:
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --exclude '*.html' --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SRC_DIR: 'data-eng-updated-new/data-eng-updated-new.py'
-          DEST_DIR: 'glue-etl-script/'
+          DEST_DIR: '/glue-etl-script/'
 
 
       - name: S3 Upload Action
