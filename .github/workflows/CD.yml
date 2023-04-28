@@ -75,7 +75,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SRC_DIR: './data-eng-updated-new/data-eng-updated-new.py'
           DEST_DIR: 'glue-etl-script'
-        working-directory: ./data-eng-updated-new
 
 
       - name: S3 Upload Action
