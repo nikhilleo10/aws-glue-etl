@@ -70,10 +70,10 @@ jobs:
           args: >
             ./data-eng-updated-new/data-eng-updated-new.py s3://${{ secrets.AWS_BUCKET }}/glue-etl-script/
         env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-
 
       - name: S3 Upload Action
         id: upload # specify some ID for use in subsequent steps
