@@ -58,6 +58,7 @@ jobs:
           args: >
             --exclude *.ipynb 
             --exclude *.json
+            --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -72,6 +73,7 @@ jobs:
           args: >
             --exclude *.py
             --exclude *.json
+            --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
