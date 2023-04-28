@@ -7,7 +7,7 @@
   },
   "command": {
     "name": "glueetl",
-    "scriptLocation": "https://data-eng-s3-wednesday.s3.ap-south-1.amazonaws.com/artifacts/c4i1OhFaSQ9rHaO7FZmXd6hGOGFL9mr8/data-eng-etl-local.ipynb?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXOGIZWYU52O73AF5%2F20230428%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20230428T065658Z&X-Amz-Expires=86400&X-Amz-Signature=16545c5d145e45a2e98a66f7009c35a884d80e04067813ac019f3b3073101e6e&X-Amz-SignedHeaders=host",
+    "scriptLocation": "s3://data-eng-s3-wednesday/glue-etl-script/data-eng-updated-new.py",
     "pythonVersion": "3"
   },
   "defaultArguments": {
