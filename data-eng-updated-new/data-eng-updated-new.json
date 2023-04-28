@@ -7,7 +7,7 @@
   },
   "command": {
     "name": "glueetl",
-    "scriptLocation": "s3://data-eng-s3-wednesday/glue-etl-script/data-eng-updated-new.py",
+    "scriptLocation": "s3://test-bucket-cd/glue-etl-script/data-eng-updated-new.py",
     "pythonVersion": "3"
   },
   "defaultArguments": {
