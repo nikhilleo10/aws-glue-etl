@@ -49,8 +49,6 @@ jobs:
           AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
         run: |
           echo "AWS credentials set up"
-          echo ${{ secrets.AWS_REGION }}
-          echo $AWS_REGION
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
