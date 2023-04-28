@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
 
 import sys
 import uuid
@@ -26,8 +32,9 @@ glueContext = GlueContext(sc)
 spark = glueContext.spark_session
 job = Job(glueContext)
 job.init("data-eng-updated")
-print('Updated with print statement')
-print('Added another print statement')
+
+print('Updated file locally')
+
 from pyspark.sql.functions import udf
 
 import nltk
@@ -48,7 +55,6 @@ print(sentiment["pos"])
 customer_dynamic_frame = glueContext.create_dynamic_frame.from_catalog(database='data-eng-s3-demo-db', table_name='test_customers',transformation_ctx = "datasource1" ,additional_options = {"jobBookmarkKeys":["id"],"jobBookmarkKeysSortOrder":"asc"})
 customer_data_frame = customer_dynamic_frame.toDF()
 customer_data_frame.printSchema()
-
 wearable_details = glueContext.create_dynamic_frame.from_catalog(database='data-eng-s3-demo-db', table_name='test_wearables',transformation_ctx = "datasource0", additional_options = {"jobBookmarkKeys":["user_id"],"jobBookmarkKeysSortOrder":"asc"})
 wearable_df = wearable_details.toDF()
 wearable_df.show()
