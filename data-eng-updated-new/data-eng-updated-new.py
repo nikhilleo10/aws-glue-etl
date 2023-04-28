@@ -378,4 +378,10 @@ insertToRedshift(notes_empty_frame, 'doctor_notes')
 # renewal_history_dy_frame = DynamicFrame.fromDF(renewal_history_facts_table, glueContext, "renewal_history_data_frame")
 # upsertToRedshift2(renewal_history_dy_frame, 'renewal_history','id')
 # print(f"End Time: {getCurrentTime()}")
+print('Done')
 job.commit()
+
+# In[ ]:
+
+
+
