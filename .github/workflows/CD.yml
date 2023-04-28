@@ -68,7 +68,8 @@ jobs:
         uses: jakejarvis/s3-sync-action@master
         with:
           args: >
-            --exclude *.ipynb *.json
+            --exclude *.ipynb 
+            --exclude *.json
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
