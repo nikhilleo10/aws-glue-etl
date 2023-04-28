@@ -37,7 +37,6 @@ jobs:
         run: |
           cd ./data-eng-updated-new
           jupyter nbconvert data-eng-etl-local.ipynb --to python --output=data-eng-updated-new.py
-          cd ..
           tree -a
           pwd
         
@@ -65,15 +64,17 @@ jobs:
       #     file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated-new.py'
       #     output-file-url: 'true'
 
-      - name: Upload to S3
-        uses: jakejarvis/s3-sync-action@master
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SRC_DIR: './data-eng-updated-new/data-eng-updated-new.py'
-          DEST_DIR: '/glue-etl-script'
+    - name: Upload to S3
+      uses: jakejarvis/s3-sync-action@master
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      working-directory: ./data-eng-updated-new
+      env:
+        SRC_DIR: './data-eng-updated-new.py'
+        DEST_DIR: 'glue-etl-script'
 
 
       - name: S3 Upload Action
