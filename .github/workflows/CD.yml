@@ -52,18 +52,6 @@ jobs:
           echo ${{ secrets.AWS_REGION }}
           echo $AWS_REGION
 
-      # # Upload python notebook and converted file on S3 bucket.
-      # - name: S3 Upload Action
-      #   id: upload # specify some ID for use in subsequent steps
-      #   uses: hkusu/s3-upload-action@v2
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
-      #     aws-bucket: ${{ secrets.AWS_BUCKET }}
-      #     file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated-new.py'
-      #     output-file-url: 'true'
-
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -76,34 +64,26 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: './data-eng-updated-new/'
-          DEST_DIR: 'glue-etl-script/'
+          DEST_DIR: 'aws-scripts/'
 
-
-      - name: S3 Upload Action
-        id: upload # specify some ID for use in subsequent steps
-        uses: hkusu/s3-upload-action@v2
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          aws-bucket: ${{ secrets.AWS_BUCKET }}
-          file-path: '/home/runner/work/aws-glue-etl/aws-glue-etl/data-eng-updated-new/data-eng-etl-local.ipynb'
-          output-file-url: 'true'
-
-      - name: Show URL
-        run: |
-          echo '${{ steps.upload.outputs.file-url }}' # use this output
-          echo ${{ secrets.PAT }}
+          args: >
+            --exclude *.py
+            --exclude *.json
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SOURCE_DIR: './data-eng-updated-new/'
+          DEST_DIR: 'aws-scripts/notebooks/'
       
       # Update the Glue job to use the new script
       - name: Update Glue job
         run: |
-          echo "S3 upload URL: ${{ steps.upload.outputs.file-url }}"
-          echo "PRINTING ENV VARIALBE ${{ env.S3_UPLOAD_LOCATION }}"
-          echo "Output URL: ${{ steps.upload.outputs.file-url }}"
-          echo "S3 Upload env varialble '$S3_UPLOAD_LOCATION'"
-          ./scripts/update-etl-config.sh '${{ steps.upload.outputs.file-url }}'
-
+          ./scripts/update-etl-config.sh s3://${{ secrets.AWS_BUCKET }}/glue-etl-script/data-eng-updated-new.py
       
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7
