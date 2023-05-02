@@ -293,11 +293,19 @@ def getNewAdmissionTextSentiment(s):
     a = sia.polarity_scores(s)
     return a["compound"]+a["neu"]
 getNewAdmissionTextSentiment_udf = udf(getNewAdmissionTextSentiment, DoubleType())
-u = u.withColumn('notes', getNewAdmissionText())
-u = u.withColumn('provider_id', providerId())
-u = u.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
-u = u.withColumn('id', generate_uuid())
-u = u.withColumn('notes_type',notesType())
+
+
+def transform_to_admission_notes(u):
+    u = u.withColumn('notes', getNewAdmissionText())
+    u = u.withColumn('provider_id', providerId())
+    u = u.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
+    u = u.withColumn('id', generate_uuid())
+    u = u.withColumn('notes_type',notesType())
+    return u
+
+u = transform_to_admission_notes(u)
+
+
 u.persist()
 u.show()
 
@@ -325,11 +333,22 @@ notesTypeFollowUp = udf(lambda: "follow_up_notes" )
 
     
 getNewAdmissionTextSentiment_udf = udf(getNewAdmissionTextSentiment, DoubleType())
-t = t.withColumn('notes', getNewFollowUpText())
-t = t.withColumn('provider_id', providerId())
-t = t.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
-t = t.withColumn('id', generate_uuid())
-t = t.withColumn('notes_type',notesType())
+
+
+
+
+
+
+def transform_to_follow_up_notes(t):
+    t = t.withColumn('notes', getNewFollowUpText())
+    t = t.withColumn('provider_id', providerId())
+    t = t.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
+    t = t.withColumn('id', generate_uuid())
+    t = t.withColumn('notes_type',notesType())
+    return t
+
+t = transform_to_follow_up_notes(t)
+
 t.persist()
 
 s3 = boto3.resource('s3')
@@ -354,13 +373,20 @@ notesTypeDischarge = udf(lambda: "discharge_notes" )
 
     
 getNewAdmissionTextSentiment_udf = udf(getNewAdmissionTextSentiment, DoubleType())
-v = v.withColumn('notes', getNewDischargeText())
-v = v.withColumn('provider_id', providerId())
-v = v.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
-v = v.withColumn('id', generate_uuid())
-v = v.withColumn('notes_type',notesTypeDischarge())
-v = v.withColumn('notes', regexp_replace('notes', '\n', ''))
-v.select('*').show()
+
+
+
+
+def transform_to_discharge_notes(v):
+    v = v.withColumn('notes', getNewDischargeText())
+    v = v.withColumn('provider_id', providerId())
+    v = v.withColumn('notes_pos_sentiment', getNewAdmissionTextSentiment_udf(col('notes')))
+    v = v.withColumn('id', generate_uuid())
+    v = v.withColumn('notes_type',notesTypeDischarge())
+    v = v.withColumn('notes', regexp_replace('notes', '\n', ''))
+    return v
+
+
 v.persist()
 all_notes_df = u.union(t).union(v)
 all_notes_df.persist()
